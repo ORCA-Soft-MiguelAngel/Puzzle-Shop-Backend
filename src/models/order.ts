@@ -16,6 +16,7 @@ export interface IProduct {
 
 export interface IOrder extends Document {
     id: string;
+    userId: string;
     status: OrderStatus;
     rating: number;
     createdAt: Date;
@@ -33,6 +34,7 @@ const ProductSchema: Schema = new Schema({
 
 const OrderSchema: Schema = new Schema({
     id: { type: String, default: uuidv4 },
+    userId: { type: String, required: true },
     status: { type: String, enum: Object.values(OrderStatus), default: OrderStatus.ACTIVE },
     rating: { type: Number, default: 0 },
     createdAt: { type: Date, default: Date.now },
