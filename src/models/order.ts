@@ -1,5 +1,4 @@
 import mongoose, { Document, Schema } from 'mongoose';
-import { v4 as uuidv4 } from 'uuid';
 
 export enum OrderStatus {
     ACTIVE = 'active',
@@ -7,7 +6,6 @@ export enum OrderStatus {
 }
 
 export interface IProduct {
-    id: string;
     title: string;
     price: number;
     description: string;
@@ -15,7 +13,6 @@ export interface IProduct {
 }
 
 export interface IOrder extends Document {
-    id: string;
     userId: string;
     status: OrderStatus;
     rating: number;
@@ -25,7 +22,6 @@ export interface IOrder extends Document {
 }
 
 const ProductSchema: Schema = new Schema({
-    id: { type: String, default: uuidv4 },
     title: { type: String, required: true },
     price: { type: Number, required: true },
     description: { type: String, required: true },
@@ -33,7 +29,6 @@ const ProductSchema: Schema = new Schema({
 });
 
 const OrderSchema: Schema = new Schema({
-    id: { type: String, default: uuidv4 },
     userId: { type: String, required: true },
     status: { type: String, enum: Object.values(OrderStatus), default: OrderStatus.ACTIVE },
     rating: { type: Number, default: 0 },

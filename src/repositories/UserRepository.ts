@@ -12,6 +12,10 @@ class UserRepository {
     return await User.findOne({ email });
   }
 
+  findByUsername(username: string): Promise<IUser | null> {
+    return User.findOne({ username });
+  }
+
   async findById(id: string) {
     return await User.findById(id);
   }

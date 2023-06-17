@@ -1,33 +1,56 @@
-import { Request, Response } from 'express';
-import OrderService from '@services/OrderService';
-
+import { NextFunction, Request, Response } from "express";
+import OrderService from "@services/OrderService";
+import { apiResponse, successResponse } from "@utils/response";
+import { StatusCodes } from "http-status-codes";
 class OrderController {
-    constructor() {}
+  constructor() {}
 
-    async createOrder(req: Request, res: Response) {
-        const order = await OrderService.createOrder(req.body);
-        res.status(201).json(order);
+  async createOrder(req: Request, res: Response, next: NextFunction) {
+    try {
+      const order = await OrderService.createOrder(req.body);
+      return apiResponse(res, successResponse(order), StatusCodes.CREATED);
+    } catch (error) {
+      next(error);
     }
+  }
 
-    async getOrderById(req: Request, res: Response) {
-        const order = await OrderService.findOrderById(req.params.id);
-        res.json(order);
+  async getOrderById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const order = await OrderService.findOrderById(req.params.id);
+      return apiResponse(res, successResponse(order), StatusCodes.OK);
+    } catch (error) {
+      next(error);
     }
+  }
 
-    async updateOrder(req: Request, res: Response) {
-        const order = await OrderService.updateOrder(req.params.id, req.body);
-        res.json(order);
+  async updateOrder(req: Request, res: Response, next: NextFunction) {
+    try {
+      const order = await OrderService.updateOrder(req.params.id, req.body);
+      return apiResponse(res, successResponse(order), StatusCodes.OK);
+    } catch (error) {
+      next(error);
     }
+  }
 
-    async deleteOrder(req: Request, res: Response) {
-        await OrderService.deleteOrder(req.params.id);
-        res.status(204).end();
+  async deleteOrder(req: Request, res: Response, next: NextFunction) {
+    try {
+      await OrderService.deleteOrder(req.params.id);
+      return apiResponse(res, successResponse(""), StatusCodes.NO_CONTENT);
+    } catch (error) {
+      next(error);
     }
+  }
 
-    async getOrdersByUserId(req: Request, res: Response) {
-        const orders = await OrderService.findAllOrdersByUserId(req.params.userId);
-        res.json(orders);
+  async getOrdersByUserId(req: Request, res: Response, next: NextFunction) {
+    try {
+      const orders = await OrderService.findAllOrdersByUserId(
+        req.params.userId
+      );
+      res.json(orders);
+    } catch (error) {
+      next(error);
     }
+  }
 }
 
 export default new OrderController();
