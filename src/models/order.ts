@@ -1,12 +1,12 @@
 import mongoose, { Document, Schema } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 
-enum OrderStatus {
+export enum OrderStatus {
     ACTIVE = 'active',
     COMPLETED = 'completed'
 }
 
-interface IProduct {
+export interface IProduct {
     id: string;
     title: string;
     price: number;
@@ -14,7 +14,7 @@ interface IProduct {
     category: string;
 }
 
-interface IOrder extends Document {
+export interface IOrder extends Document {
     id: string;
     status: OrderStatus;
     rating: number;
