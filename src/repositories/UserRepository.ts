@@ -8,10 +8,6 @@ class UserRepository {
     return await newUser.save();
   }
 
-  async findByEmail(email: string) {
-    return await User.findOne({ email });
-  }
-
   findByUsername(username: string): Promise<IUser | null> {
     return User.findOne({ username });
   }

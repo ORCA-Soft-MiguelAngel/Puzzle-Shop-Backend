@@ -14,15 +14,6 @@ class UserController {
       next(error);
     }
   }
-
-  async updateUser(req: Request, res: Response, next: NextFunction) {
-    try {
-      const user = await UserService.updateUser(req.params.id, req.body);
-      return apiResponse(res, successResponse(user), StatusCodes.OK);
-    } catch (error) {
-      next(error);
-    }
-  }
 }
 
 export default new UserController();

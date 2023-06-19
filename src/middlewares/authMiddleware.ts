@@ -10,19 +10,20 @@ function authMiddleware(
   res: Response,
   next: NextFunction
 ) {
-  const authHeader = req.headers.authorization;
+  const token = req.headers.authorization;
 
-  if (authHeader) {
-    const token = authHeader.split(" ")[1];
+  if (token) {    
     const payload = verifyToken(token);
 
     if (payload) {
       req.user = payload;
       next();
     } else {
+      // TODO: Change to apiResponse
       res.status(401).json({ error: "Invalid token" });
     }
   } else {
+    // TODO: Change to apiResponse
     res.status(401).json({ error: "No token provided" });
   }
 }

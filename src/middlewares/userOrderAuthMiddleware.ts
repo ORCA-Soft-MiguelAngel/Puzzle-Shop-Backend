@@ -15,21 +15,23 @@ async function userOrderAuthMiddleware(
   const authHeader = req.headers.authorization;
 
   if (authHeader) {
-    const token = authHeader.split(" ")[1];
-    const payload = verifyToken(token);
+    const payload = verifyToken(authHeader);
 
     if (payload) {
       req.user = payload;
       const order = await OrderService.findOrderById(req.params.id);
 
-      if (order && order.userId !== req.user._id) {
+      if (order && order.userId !== req.user.userId) {
+        // TODO: Change to apiResponse
         return res.status(401).json({ error: "Unauthorized" });
       }
       next();
     } else {
+      // TODO: Change to apiResponse
       res.status(401).json({ error: "Invalid token" });
     }
   } else {
+    // TODO: Change to apiResponse
     res.status(401).json({ error: "No token provided" });
   }
 }

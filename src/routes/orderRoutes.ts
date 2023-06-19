@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/", authMiddleware, OrderController.createOrder);
 router.get("/user/:userId", authMiddleware, OrderController.getOrdersByUserId);
 router.get("/:id", userOrderAuthMiddleware, OrderController.getOrderById);
-router.put("/:id", userOrderAuthMiddleware, OrderController.updateOrder);
+router.put("/", userOrderAuthMiddleware, OrderController.updateOrder);
 router.delete("/:id", userOrderAuthMiddleware, OrderController.deleteOrder);
 
 export default router;

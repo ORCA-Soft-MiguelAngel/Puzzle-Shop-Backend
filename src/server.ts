@@ -17,7 +17,7 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/orders", orderRoutes);
-app.use(errorHandlerMiddleware);
+app.use(errorHandlerMiddleware); 
 
 // Connect to the database
 connectDB()

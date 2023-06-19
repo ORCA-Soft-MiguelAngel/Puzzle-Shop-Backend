@@ -6,7 +6,7 @@ class OrderController {
   constructor() {}
 
   async createOrder(req: Request, res: Response, next: NextFunction) {
-    try {
+    try {      
       const order = await OrderService.createOrder(req.body);
       return apiResponse(res, successResponse(order), StatusCodes.CREATED);
     } catch (error) {
@@ -25,7 +25,7 @@ class OrderController {
 
   async updateOrder(req: Request, res: Response, next: NextFunction) {
     try {
-      const order = await OrderService.updateOrder(req.params.id, req.body);
+      const order = await OrderService.updateOrder(req.body._id, req.body);
       return apiResponse(res, successResponse(order), StatusCodes.OK);
     } catch (error) {
       next(error);
@@ -35,7 +35,7 @@ class OrderController {
   async deleteOrder(req: Request, res: Response, next: NextFunction) {
     try {
       await OrderService.deleteOrder(req.params.id);
-      return apiResponse(res, successResponse(""), StatusCodes.NO_CONTENT);
+      return apiResponse(res, successResponse("Deleted"), StatusCodes.OK);
     } catch (error) {
       next(error);
     }
@@ -46,7 +46,7 @@ class OrderController {
       const orders = await OrderService.findAllOrdersByUserId(
         req.params.userId
       );
-      res.json(orders);
+      return apiResponse(res, successResponse(orders), StatusCodes.OK);
     } catch (error) {
       next(error);
     }

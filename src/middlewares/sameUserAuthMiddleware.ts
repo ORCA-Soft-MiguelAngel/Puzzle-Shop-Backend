@@ -9,19 +9,21 @@ function sameUserAuthMiddleware(req: RequestWithUser, res: Response, next: NextF
     const authHeader = req.headers.authorization;
 
     if (authHeader) {
-        const token = authHeader.split(' ')[1];
-        const payload = verifyToken(token);
+        const payload = verifyToken(authHeader);
 
         if (payload) {
             req.user = payload;
-            if (req.user._id !== req.params.id) {
+            if (req.user.userId !== req.params.id) {
+                // TODO: Change to apiResponse
                 return res.status(401).json({ error: 'Unauthorized' });
             }
             next();
         } else {
+            // TODO: Change to apiResponse
             res.status(401).json({ error: 'Invalid token' });
         }
     } else {
+        // TODO: Change to apiResponse
         res.status(401).json({ error: 'No token provided' });
     }
 }
