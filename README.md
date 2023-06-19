@@ -16,27 +16,29 @@ Puzzle Shop is a web-based e-commerce application built using React. The applica
 # To install and run
 
 1. Clone or download the repo and install the dependencies.
-
+```
    npm install
-
+```
 2. Create a .env file in the root folder and configure the following environment variables:
 
+```
 PORT=5000
 NODE_ENV=development
 CLIENT_WHITELIST=http://localhost:3000
 MONGO_URL=mongodb://localhost:27017/puzzle_db
 JWT_SECRET_KEY=puzzle-scret-key
+```
 
 3. Run npm run dev to start the project
-
+```
    npm run dev
-
+```
 # Note
 
 - This is the Backend part of this project, you need to run this before the frontend, you can check the Frontend project [HERE]()
 - When both (Backend and Frontend) Starts, Signup with a new account, you only need to put an username and password, for example:
-
+```
 username: miguel  
 password: pass123
-
+```
 - You need a MongoDB local server or a cloud link to fill the MONGO_URL variable
